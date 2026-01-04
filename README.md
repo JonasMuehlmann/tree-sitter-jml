@@ -81,6 +81,37 @@ npx tree-sitter generate
 
 ### Neovim Integration
 
+#### Via Package Manager (Recommended)
+
+Using [lazy.nvim](https://github.com/folke/lazy.nvim):
+
+```lua
+{
+  "JMuhlmann/tree-sitter-jml",
+  dependencies = { "nvim-treesitter/nvim-treesitter" },
+  build = ":TSUpdate jml",
+}
+```
+
+Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
+
+```lua
+use {
+  'JMuhlmann/tree-sitter-jml',
+  requires = { 'nvim-treesitter/nvim-treesitter' },
+  run = ':TSUpdate jml',
+}
+```
+
+Using [vim-plug](https://github.com/junegunn/vim-plug):
+
+```vim
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'JMuhlmann/tree-sitter-jml'
+```
+
+After installation, run `:TSInstall jml` in Neovim.
+
 #### Manual Setup
 
 Add to your Neovim config (`~/.config/nvim/init.lua`):
