@@ -7,10 +7,17 @@
       "title": "Java Modeling Language",
       "scope": "source.jml",
       "file-types": [
-        "java"
+        "java",
+        "jml"
       ],
       "injection-regex": "^jml$",
-      "class-name": "TreeSitterJml"
+      "class-name": "TreeSitterJml",
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "locals": [
+        "queries/locals.scm"
+      ]
     }
   ],
   "metadata": {

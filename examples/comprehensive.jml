@@ -1,0 +1,141 @@
+// JML Grammar Test Examples
+// Based on KeY JML* specification
+
+// ===== Class Invariants =====
+
+//@ public instance invariant balance >= 0;
+//@ private static invariant MAX_SIZE > 0;
+//@ public invariant CONST_INVARIANT: size <= MAX_SIZE;
+
+//@ axiom (\forall int x; x >= 0; x * x >= 0);
+
+//@ initially count == 0;
+
+// ===== Method Contracts =====
+
+/*@
+  @ public normal_behavior
+  @   requires amount > 0;
+  @   requires balance + amount <= MAX_BALANCE;
+  @   ensures balance == \old(balance) + amount;
+  @   ensures \result == true;
+  @   assignable balance;
+  @ also
+  @ public exceptional_behavior  
+  @   requires amount <= 0;
+  @   signals_only IllegalArgumentException;
+  @   assignable \nothing;
+  */
+
+// ===== Model Methods =====
+
+//@ public model int sumArray(int[] arr) {
+//@   return (\sum int i; 0 <= i && i < arr.length; arr[i]);
+//@ }
+
+/*@ private model boolean checkInvariant() {
+  @   if (balance >= 0) {
+  @     return true;
+  @   } else {
+  @     return false;
+  @   }
+  @ }
+  */
+
+// ===== Ghost and Model Fields =====
+
+//@ ghost int transactionCount;
+//@ model int cachedTotal = 0;
+//@ public static ghost boolean initialized;
+
+// ===== Loop Invariants =====
+
+/*@
+  @ loop_invariant 0 <= i && i <= array.length;
+  @ loop_invariant sum == (\sum int j; 0 <= j && j < i; array[j]);
+  @ decreases array.length - i;
+  @ assignable sum, i;
+  */
+
+// ===== Quantified Expressions =====
+
+//@ ensures (\forall int i; 0 <= i && i < array.length; array[i] >= 0);
+//@ ensures (\exists int i; 0 <= i && i < array.length; array[i] == target);
+//@ ensures (\num_of int i; 0 <= i && i < size; items[i] != null) >= 1;
+
+// ===== JML Keywords and Operators =====
+
+//@ requires array != null && array.length > 0;
+//@ ensures \result >= 0;
+//@ ensures \fresh(\result);
+//@ assignable \everything;
+//@ accessible \nothing;
+
+// ===== Heap Specifications =====
+
+//@ requires<heap1> obj != null;
+//@ ensures<heap1> \result == obj.value;
+//@ assignable<heap1> obj.field;
+
+// ===== Information Flow =====
+
+/*@
+  @ determines publicOutput by publicInput
+  @   declassifies secretInput
+  @   new_objects \result;
+  */
+
+// ===== Block Contracts =====
+
+/*@
+  @ break_behavior
+  @   breaks (outer) condition;
+  @   assignable flag;
+  @ also
+  @ continue_behavior
+  @   continues (inner) !condition;
+  @ also  
+  @ return_behavior
+  @   returns value > 0;
+  @   assignable \nothing;
+  */
+
+// ===== JML Statements =====
+
+//@ set ghostVar = computedValue;
+//@ assert invariantHolds;
+//@ assume preconditionSatisfied;
+
+// ===== Type Specifications =====
+
+//@ non_null Object obj;
+//@ nullable String str;
+
+// ===== Modifiers =====
+
+//@ pure
+//@ strictly_pure
+//@ helper
+//@ model
+//@ nullable_by_default
+
+// ===== Complex Expressions =====
+
+//@ ensures \result == (\max int i; 0 <= i && i < array.length; array[i]);
+//@ ensures (\product int i; 1 <= i && i <= n; i) == factorial(n);
+//@ ensures \lbl(RESULT_POSITIVE, \result > 0);
+//@ requires array[0..array.length-1] != null;
+//@ ensures array[*] >= 0;
+
+// ===== Nested Contracts =====
+
+/*@
+  @ public behavior
+  @   {|
+  @     requires x > 0;
+  @     ensures \result > 0;
+  @   also
+  @     requires x <= 0;  
+  @     ensures \result <= 0;
+  @   |}
+  */
