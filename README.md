@@ -6,13 +6,6 @@ A Tree-Sitter grammar for the Java Modeling Language (JML), based on the JML* di
 
 This grammar implements parsing for JML specifications as defined in the [KeY JML Grammar documentation](https://keyproject.github.io/key-docs/user/JMLGrammar/). JML is a behavioral interface specification language for Java that uses special comments to add formal specifications to Java code.
 
-**Features:**
-- ✅ Full JML* syntax support with syntax highlighting
-- ✅ Standalone `.jml` files
-- ✅ **JML within `.java` files** (via tree-sitter injection)
-- ✅ Neovim integration with nvim-treesitter
-- ✅ Code navigation and textobjects
-
 ## Features
 
 The grammar supports the following JML constructs:
@@ -77,9 +70,9 @@ JML specifications are written in special comments:
   */
 ```
 
-## Usage
+## Installation
 
-### Installation
+### Building from Source
 
 ```bash
 npm install
@@ -88,57 +81,9 @@ npx tree-sitter generate
 
 ### Neovim Integration
 
-To use this grammar in Neovim with nvim-treesitter:
-
-#### Quick Setup (Standalone .jml files)
-
-```bash
-./setup_neovim.sh
-```
-
-Then in your Neovim config (`~/.config/nvim/init.lua`):
-
-```lua
-require('jml_setup')
-```
-
-And in Neovim:
-
-```vim
-:TSInstall jml
-```
-
-See [QUICKSTART_NEOVIM.md](QUICKSTART_NEOVIM.md) for details.
-
-#### JML in Java Files
-
-To get JML syntax highlighting **inside Java files**:
-
-```bash
-./setup_java_integration.sh
-```
-
-Then in your Neovim config:
-
-```lua
-require('jml_java_setup')
-```
-
-And in Neovim:
-
-```vim
-:TSInstall java jml
-```
-
-This uses tree-sitter language injection to parse JML comments (`//@` and `/*@ */`) within Java source files.
-
-**See:**
-- [JAVA_QUICKSTART.md](JAVA_QUICKSTART.md) - Quick 3-step setup
-- [JAVA_INTEGRATION.md](JAVA_INTEGRATION.md) - Complete integration guide
-
 #### Manual Setup
 
-Add to your Neovim config:
+Add to your Neovim config (`~/.config/nvim/init.lua`):
 
 ```lua
 local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
@@ -155,7 +100,13 @@ parser_config.jml = {
 vim.filetype.add({ extension = { jml = "jml" } })
 ```
 
-See [NEOVIM_INTEGRATION.md](NEOVIM_INTEGRATION.md) for complete configuration options, troubleshooting, and advanced features.
+Then run `:TSInstall jml` in Neovim.
+
+#### JML in Java Files
+
+To get JML syntax highlighting inside Java files, add injection queries to your tree-sitter Java configuration. The grammar includes injection queries in `queries/java/injections.scm` that enable parsing of JML comments (`//@` and `/*@ */`) within Java source files.
+
+## Usage
 
 ### Parsing JML Files
 
@@ -208,8 +159,6 @@ To test highlighting:
 ```bash
 npx tree-sitter highlight examples/comprehensive.jml
 ```
-
-See `queries/README.md` for detailed documentation on all available queries.
 
 ## Development
 
