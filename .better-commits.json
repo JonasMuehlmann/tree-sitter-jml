@@ -91,6 +91,10 @@
       {
         "value": "grammar",
         "label": "grammar"
+      },
+      {
+        "value": "plugin",
+        "label": "plugin"
       }
     ]
   },
